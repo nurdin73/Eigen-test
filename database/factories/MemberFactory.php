@@ -17,7 +17,9 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'code' => "{$this->faker->randomLetter()}-{$this->faker->randomDigitNotZero()}",
+            'name' => $this->faker->name(),
+            'is_penalty' => $this->faker->boolean()
         ];
     }
 }
