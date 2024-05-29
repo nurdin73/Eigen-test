@@ -1,0 +1,188 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger API",
+        "description": "API Documentation",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "apiteam@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "SwaggerHUB API Mocking"
+        }
+    ],
+    "paths": {
+        "/books": {
+            "get": {
+                "tags": [
+                    "books"
+                ],
+                "summary": "Check The Book",
+                "description": "Get All Book quantities",
+                "operationId": "checkTheBook",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/members": {
+            "get": {
+                "tags": [
+                    "members"
+                ],
+                "summary": "Member Check",
+                "description": "Get All existing members",
+                "operationId": "checkMembers",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Member"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Member"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/members/booked": {
+            "post": {
+                "tags": [
+                    "members"
+                ],
+                "summary": "Member meminjam buku",
+                "operationId": "memberBooked",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Booked"
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/members/return": {
+            "post": {
+                "tags": [
+                    "members"
+                ],
+                "summary": "Member meminjam buku",
+                "operationId": "memberReturned",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Returned"
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Book": {
+                "title": "Book model",
+                "description": "Book model",
+                "required": [
+                    "code",
+                    "title",
+                    "author",
+                    "stock"
+                ],
+                "xml": {
+                    "name": "Book"
+                }
+            },
+            "Member": {
+                "title": "Member model",
+                "description": "Member model",
+                "required": [
+                    "code",
+                    "name",
+                    "is_penalty"
+                ],
+                "xml": {
+                    "name": "Member"
+                }
+            }
+        },
+        "requestBodies": {
+            "Booked": {
+                "description": "Member meminjam buku",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "total": {
+                                    "title": "Total",
+                                    "description": "Total Buku yang akan dipinjam",
+                                    "type": "integer",
+                                    "default": "1"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "Returned": {
+                "description": "Member mengembalikan buku",
+                "required": true
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}
