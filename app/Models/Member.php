@@ -41,10 +41,31 @@ use Illuminate\Database\Eloquent\Model;
  *         description="Penalti",
  *         title="Penalti"
  *     ),
+ *     @OA\Property(
+ *         type="int",
+ *         property="book_borrowed",
+ *         description="Jumlah Buku yang dipinjam",
+ *         title="Penalti"
+ *     ),
  * )
  */
 class Member extends Model
 {
     use HasFactory;
-    protected $fillable = ['code', 'name', 'is_penalty'];
+    protected $fillable = ['code', 'name'];
+
+    public function bookeds()
+    {
+        return $this->hasMany(MemberBooked::class, 'member_id', 'id');
+    }
+
+    public function penalty()
+    {
+        return $this->hasOne(MemberPenalty::class, 'member_id', 'id')->latestOfMany();
+    }
+
+    public function penalties()
+    {
+        return $this->hasMany(MemberPenalty::class, 'member_id', 'id');
+    }
 }
