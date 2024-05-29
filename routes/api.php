@@ -22,8 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'members'], function () {
     Route::get('/', [MemberController::class, 'index']);
-    Route::post('/booking', [MemberController::class, 'booked']);
-    Route::post('/return', [MemberController::class, 'returned']);
+    Route::post('/{id}/booking', [MemberController::class, 'booked']);
+    Route::post('/{id}/return', [MemberController::class, 'returned']);
 });
 
 Route::get('/books', [BookController::class, 'index']);

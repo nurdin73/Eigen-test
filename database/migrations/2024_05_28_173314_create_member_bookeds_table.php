@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('member_bookeds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id')->constrained();
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('member_id')->constrained('members')->cascadeOnDelete();
+            $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
             $table->date('booked_date');
             $table->date('return_date')->nullable();
             $table->integer('book_total')->default(1);

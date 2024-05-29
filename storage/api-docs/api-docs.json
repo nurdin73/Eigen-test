@@ -76,36 +76,175 @@
                 }
             }
         },
-        "/members/booked": {
+        "/members/{id}/booking": {
             "post": {
                 "tags": [
                     "members"
                 ],
                 "summary": "Member meminjam buku",
                 "operationId": "memberBooked",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Member",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/Booked"
                 },
                 "responses": {
-                    "405": {
-                        "description": "Invalid input"
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Member tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Request Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Request Body tidak sesuai"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "total": {
+                                                    "default": "Value total harus integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Member sedang dapat penalti hingga 2024-05-01!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Buku Berhasil dipinjam"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "/members/return": {
+        "/members/{id}/return": {
             "post": {
                 "tags": [
                     "members"
                 ],
                 "summary": "Member meminjam buku",
                 "operationId": "memberReturned",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Member",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/Returned"
                 },
                 "responses": {
-                    "405": {
-                        "description": "Invalid input"
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Member tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Member Dr. Clotilde Rohan tidak meminjam buku ducimus illo quia commodi!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Request Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Request Body tidak sesuai"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "total": {
+                                                    "default": "Value total harus integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -182,6 +321,11 @@
                         "title": "Penalti",
                         "description": "Penalti",
                         "type": "boolean"
+                    },
+                    "book_borrowed": {
+                        "title": "Penalti",
+                        "description": "Jumlah Buku yang dipinjam",
+                        "type": "integer"
                     }
                 },
                 "type": "object",
@@ -198,16 +342,26 @@
                     "application/json": {
                         "schema": {
                             "properties": {
-                                "total": {
-                                    "title": "Total",
-                                    "description": "Total Buku yang akan dipinjam",
-                                    "type": "integer",
-                                    "default": "1"
-                                },
-                                "kode_buku": {
-                                    "title": "Kode Buku",
-                                    "description": "Kode Buku yang dipinjam",
-                                    "type": "string"
+                                "books": {
+                                    "title": "List Buku",
+                                    "description": "List Buku",
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "total": {
+                                                "title": "Total",
+                                                "description": "Total Buku yang akan dipinjam",
+                                                "type": "integer",
+                                                "default": "1"
+                                            },
+                                            "kode_buku": {
+                                                "title": "Kode Buku",
+                                                "description": "Kode Buku yang dipinjam",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
                                 }
                             },
                             "type": "object"
@@ -222,16 +376,26 @@
                     "application/json": {
                         "schema": {
                             "properties": {
-                                "total": {
-                                    "title": "Total",
-                                    "description": "Total Buku yang akan dikembalikan",
-                                    "type": "integer",
-                                    "default": "1"
-                                },
-                                "kode_buku": {
-                                    "title": "Kode Buku",
-                                    "description": "Kode Buku yang dikembalikan",
-                                    "type": "string"
+                                "books": {
+                                    "title": "List Buku",
+                                    "description": "List Buku",
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "total": {
+                                                "title": "Total",
+                                                "description": "Total Buku yang akan dipinjam",
+                                                "type": "integer",
+                                                "default": "1"
+                                            },
+                                            "kode_buku": {
+                                                "title": "Kode Buku",
+                                                "description": "Kode Buku yang dipinjam",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
                                 }
                             },
                             "type": "object"

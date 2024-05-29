@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 /**
  * @OA\RequestBody(
@@ -11,17 +13,25 @@ use Illuminate\Foundation\Http\FormRequest;
  *     required=true,
  *     @OA\JsonContent(
  *          @OA\Property(
- *               description="Total Buku yang akan dipinjam",
- *               title="Total",
- *               type="int",
- *               property="total",
- *               default="1"
- *          ),
- *          @OA\Property(
- *               description="Kode Buku yang dipinjam",
- *               title="Kode Buku",
- *               type="string",
- *               property="kode_buku"
+ *              description="List Buku",
+ *              title="List Buku",
+ *              type="array",
+ *              property="books",
+ *              @OA\Items(
+ *                  @OA\Property(
+ *                      description="Total Buku yang akan dipinjam",
+ *                      title="Total",
+ *                      type="int",
+ *                      property="total",
+ *                      default="1"
+ *                  ),
+ *                  @OA\Property(
+ *                      description="Kode Buku yang dipinjam",
+ *                      title="Kode Buku",
+ *                      type="string",
+ *                      property="kode_buku"
+ *                  )
+ *              )
  *          )
  *     ),
  * )
@@ -44,8 +54,17 @@ class BookedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'total' => 'required|integer|max:2',
-            'kode_buku' => 'required|exists:books,code'
+            'books' => 'required|array',
+            'books.*.total' => 'required|integer',
+            'books.*.kode_buku' => 'required|exists:books,code'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => "Request Body tidak sesuai",
+            'errors' => $validator->errors()
+        ], 422));
     }
 }
