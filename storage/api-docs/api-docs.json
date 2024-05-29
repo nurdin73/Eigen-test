@@ -16,7 +16,7 @@
     "servers": [
         {
             "url": "http://localhost:8000/api",
-            "description": "SwaggerHUB API Mocking"
+            "description": "BASE URL"
         }
     ],
     "paths": {
@@ -33,14 +33,6 @@
                         "description": "successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Book"
-                                    }
-                                }
-                            },
-                            "application/xml": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
@@ -69,14 +61,6 @@
                         "description": "successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Member"
-                                    }
-                                }
-                            },
-                            "application/xml": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
@@ -138,6 +122,34 @@
                     "author",
                     "stock"
                 ],
+                "properties": {
+                    "id": {
+                        "title": "ID Buku",
+                        "description": "ID Buku",
+                        "type": "integer"
+                    },
+                    "code": {
+                        "title": "Kode Buku",
+                        "description": "Kode Buku",
+                        "type": "string"
+                    },
+                    "title": {
+                        "title": "Judul Buku",
+                        "description": "Judul Buku",
+                        "type": "string"
+                    },
+                    "author": {
+                        "title": "Pembuat Buku",
+                        "description": "Pembuat buku",
+                        "type": "string"
+                    },
+                    "stock": {
+                        "title": "Stok Buku",
+                        "description": "Stok Buku tersisa",
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
                 "xml": {
                     "name": "Book"
                 }
@@ -150,6 +162,29 @@
                     "name",
                     "is_penalty"
                 ],
+                "properties": {
+                    "id": {
+                        "title": "ID Member",
+                        "description": "ID Member",
+                        "type": "integer"
+                    },
+                    "code": {
+                        "title": "Kode Member",
+                        "description": "Kode Member",
+                        "type": "string"
+                    },
+                    "name": {
+                        "title": "Nama Member",
+                        "description": "Nama Member",
+                        "type": "string"
+                    },
+                    "is_penalty": {
+                        "title": "Penalti",
+                        "description": "Penalti",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
                 "xml": {
                     "name": "Member"
                 }
@@ -168,6 +203,11 @@
                                     "description": "Total Buku yang akan dipinjam",
                                     "type": "integer",
                                     "default": "1"
+                                },
+                                "kode_buku": {
+                                    "title": "Kode Buku",
+                                    "description": "Kode Buku yang dipinjam",
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -177,12 +217,28 @@
             },
             "Returned": {
                 "description": "Member mengembalikan buku",
-                "required": true
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "total": {
+                                    "title": "Total",
+                                    "description": "Total Buku yang akan dikembalikan",
+                                    "type": "integer",
+                                    "default": "1"
+                                },
+                                "kode_buku": {
+                                    "title": "Kode Buku",
+                                    "description": "Kode Buku yang dikembalikan",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
             }
         }
-    },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
     }
 }

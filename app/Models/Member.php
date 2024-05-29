@@ -16,52 +16,35 @@ use Illuminate\Database\Eloquent\Model;
  *     required={"code", "name", "is_penalty"},
  *     @OA\Xml(
  *         name="Member"
- *     )
+ *     ),
+ *     @OA\Property(
+ *         type="int",
+ *         property="id",
+ *         description="ID Member",
+ *         title="ID Member"
+ *     ),
+ *     @OA\Property(
+ *         type="string",
+ *         property="code",
+ *         description="Kode Member",
+ *         title="Kode Member"
+ *     ),
+ *     @OA\Property(
+ *         type="string",
+ *         property="name",
+ *         description="Nama Member",
+ *         title="Nama Member"
+ *     ),
+ *     @OA\Property(
+ *         type="bool",
+ *         property="is_penalty",
+ *         description="Penalti",
+ *         title="Penalti"
+ *     ),
  * )
  */
 class Member extends Model
 {
     use HasFactory;
     protected $fillable = ['code', 'name', 'is_penalty'];
-
-    /**
-     * @OA\Property(
-     *     format="int64",
-     *     description="ID",
-     *     title="ID",
-     * )
-     *
-     * @var int
-     */
-
-    /**
-     * @OA\Property(
-     *     format="string",
-     *     description="Code",
-     *     title="Code",
-     * )
-     *
-     * @var string
-     */
-
-    /**
-     * @OA\Property(
-     *     format="string",
-     *     description="Name",
-     *     title="Name",
-     * )
-     *
-     * @var string
-     */
-
-
-    /**
-     * @OA\Property(
-     *     format="bool",
-     *     description="Is Penalty",
-     *     title="Is Penalty",
-     * )
-     *
-     * @var bool
-     */
 }

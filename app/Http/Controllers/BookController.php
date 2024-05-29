@@ -19,10 +19,6 @@ class BookController extends Controller
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/Book")
-     *         ),
-     *         @OA\XmlContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Book")
      *         )
      *     ),
      *     @OA\Response(

@@ -9,19 +9,21 @@ use Illuminate\Foundation\Http\FormRequest;
  *     request="Returned",
  *     description="Member mengembalikan buku",
  *     required=true,
- *     @OA\Property(
- *         description="Total Buku yang akan dipinjam",
- *         title="Total",
- *         type="int",
- *         property="total",
- *         default="1"
+ *     @OA\JsonContent(
+ *          @OA\Property(
+ *               description="Total Buku yang akan dikembalikan",
+ *               title="Total",
+ *               type="int",
+ *               property="total",
+ *               default="1"
+ *          ),
+ *          @OA\Property(
+ *               description="Kode Buku yang dikembalikan",
+ *               title="Kode Buku",
+ *               type="string",
+ *               property="kode_buku"
+ *          )
  *     ),
- *     @OA\Property(
- *         description="Kode Buku yang dikembalikan",
- *         title="Kode Buku",
- *         type="string",
- *         property="kode"
- *     )
  * )
  */
 class ReturnedRequest extends FormRequest
@@ -42,7 +44,8 @@ class ReturnedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'total' => 'required|integer'
+            'total' => 'required|integer',
+            'kode_buku' => 'required|exists:books,code'
         ];
     }
 }

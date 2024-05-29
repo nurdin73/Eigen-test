@@ -21,7 +21,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *               description="Kode Buku yang dipinjam",
  *               title="Kode Buku",
  *               type="string",
- *               property="kode"
+ *               property="kode_buku"
  *          )
  *     ),
  * )
@@ -44,7 +44,8 @@ class BookedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'total' => 'required|integer|max:2'
+            'total' => 'required|integer|max:2',
+            'kode_buku' => 'required|exists:books,code'
         ];
     }
 }

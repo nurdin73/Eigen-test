@@ -16,66 +16,41 @@ use Illuminate\Database\Eloquent\Model;
  *     required={"code", "title", "author", "stock"},
  *     @OA\Xml(
  *         name="Book"
- *     )
+ *     ),
+ *     @OA\Property(
+ *         description="ID Buku",
+ *         title="ID Buku",
+ *         type="int",
+ *         property="id",
+ *     ),
+ *     @OA\Property(
+ *         description="Kode Buku",
+ *         title="Kode Buku",
+ *         type="string",
+ *         property="code",
+ *     ),
+ *     @OA\Property(
+ *         description="Judul Buku",
+ *         title="Judul Buku",
+ *         type="string",
+ *         property="title",
+ *     ),
+ *     @OA\Property(
+ *         description="Pembuat buku",
+ *         title="Pembuat Buku",
+ *         type="string",
+ *         property="author",
+ *     ),
+ *     @OA\Property(
+ *         description="Stok Buku tersisa",
+ *         title="Stok Buku",
+ *         type="int",
+ *         property="stock",
+ *     ),  
  * )
  */
 class Book extends Model
 {
     use HasFactory;
     protected $fillable = ['code', 'title', 'author', 'stock'];
-
-    /**
-     * @OA\Property(
-     *     type="int",
-     *     property="id",
-     *     description="ID",
-     *     title="ID",
-     * )
-     *
-     * @var int
-     */
-
-    /**
-     * @OA\Property(
-     *     type="string",
-     *     property="code",
-     *     title="Code",
-     *     description="Code"
-     * )
-     *
-     * @var string
-     */
-
-    /**
-     * @OA\Property(
-     *     type="string",
-     *     property="author",
-     *     title="Author",
-     *     description="Author"
-     * )
-     *
-     * @var string
-     */
-
-    /**
-     * @OA\Property(
-     *     type="string",
-     *     property="title",
-     *     title="title",
-     *     description="title"
-     * )
-     *
-     * @var string
-     */
-
-    /**
-     * @OA\Property(
-     *     type="int",
-     *     property="stock",
-     *     title="Stock",
-     *     description="Stock"
-     * )
-     *
-     * @var int
-     */
 }

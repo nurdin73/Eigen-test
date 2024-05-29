@@ -21,12 +21,8 @@ use Illuminate\Routing\Controller as BaseController;
  *     )
  * )
  * @OA\Server(
- *     description="SwaggerHUB API Mocking",
+ *     description="BASE URL",
  *     url="http://localhost:8000/api"
- * )
- * @OA\ExternalDocumentation(
- *     description="Find out more about Swagger",
- *     url="http://swagger.io"
  * )
  */
 class Controller extends BaseController
