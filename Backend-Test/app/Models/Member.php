@@ -36,12 +36,6 @@ use Illuminate\Database\Eloquent\Model;
  *         title="Nama Member"
  *     ),
  *     @OA\Property(
- *         type="bool",
- *         property="is_penalty",
- *         description="Penalti",
- *         title="Penalti"
- *     ),
- *     @OA\Property(
  *         type="int",
  *         property="book_borrowed",
  *         description="Jumlah Buku yang dipinjam",

@@ -153,7 +153,7 @@
                         }
                     },
                     "200": {
-                        "description": "Forbidden",
+                        "description": "Sukses",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -245,6 +245,21 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "Sukses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "default": "Buku Berhasil dikembalikan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -316,11 +331,6 @@
                         "title": "Nama Member",
                         "description": "Nama Member",
                         "type": "string"
-                    },
-                    "is_penalty": {
-                        "title": "Penalti",
-                        "description": "Penalti",
-                        "type": "boolean"
                     },
                     "book_borrowed": {
                         "title": "Penalti",

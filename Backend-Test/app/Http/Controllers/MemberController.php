@@ -91,7 +91,7 @@ class MemberController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Forbidden",
+     *         description="Sukses",
      *         @OA\JsonContent(
      *              @OA\Property(
      *                  property="message",
@@ -186,6 +186,16 @@ class MemberController extends Controller
      *                      property="total",
      *                      default="Value total harus integer"
      *                  )
+     *              )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Sukses",
+     *         @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  default="Buku Berhasil dikembalikan"
      *              )
      *         )
      *     ),

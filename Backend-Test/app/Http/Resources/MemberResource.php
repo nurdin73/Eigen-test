@@ -19,7 +19,6 @@ class MemberResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
-            'is_penalty' => $this->is_penalty,
             'book_borrowed' => $this->bookeds_sum_book_total ?? 0
         ];
     }
